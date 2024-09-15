@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class Recommendation Tool</title>
+    <link rel="icon" type="image/x-icon" href="favicon2.ico">
+    <link rel="stylesheet" href="mystyle.css">
+</head>
+<body>
+    <h1>D&D Class Recommendation Tool!!</h1>
+    <p>
+        All you have to do is input your six stats and choose any classes you do not want factored into the calculation.  Then watch the magic unfold!
+    </p>
+    <br>
+    <br>
+    <form>
+        <label for="stat1">Strength:</label>
+        <input type = "text" id="stat1" name="stat1" pattern = [0-9]{2}><br><br>
+        <label for="stat2">Dexterity:</label>
+        <input type = "text" id="stat2" name="stat2" pattern = [0-9]{2}><br><br>
+        <label for="stat3">Constitution:</label>
+        <input type = "text" id="stat3" name="stat3" pattern = [0-9]{2}><br><br>
+        <label for="stat4">Intelligence:</label>
+        <input type = "text" id="stat4" name="stat4" pattern = [0-9]{2}><br><br>
+        <label for="stat5">Wisdom:</label>
+        <input type = "text" id="stat5" name="stat5" pattern = [0-9]{2}><br><br>
+        <label for="stat6">Charisma:</label>
+        <input type = "text" id="stat6" name="stat6" pattern = [0-9]{2}><br><br>
+
+        <label for= "ignore"> Ignore Class(es):</label>
+        <input type= "checkbox" id="ART" name = "ignore" value = "Artificer">        <label for= "ART">Artificer</label>
+        <input type= "checkbox" id="BAB" name = "ignore" value = "Barbarian">        <label for= "BAB">Barbarian</label>
+        <input type= "checkbox" id="BAD" name = "ignore" value = "Bard">        <label for= "BAD">Bard</label>
+        <input type= "checkbox" id="BH" name = "ignore" value = "BloodHunter">        <label for= "BH">Bloodhunter</label>
+        <input type= "checkbox" id="CL" name = "ignore" value = "Cleric">        <label for= "CL">Cleric</label>
+        <input type= "checkbox" id="DR" name = "ignore" value = "Druid">        <label for= "DR">Druid</label>
+        <input type= "checkbox" id="FT" name = "ignore" value = "Fighter">        <label for= "FT">Fighter</label>
+        <input type= "checkbox" id="MONK" name = "ignore" value = "Monk">        <label for= "Monk">Monk</label>
+        <input type= "checkbox" id="PAL" name = "ignore" value = "Paladin">        <label for= "PAL">Paladin</label>
+        <input type= "checkbox" id="RAN" name = "ignore" value = "Ranger">        <label for= "RAN">Ranger</label>
+        <input type= "checkbox" id="ROG" name = "ignore" value = "Rogue">        <label for= "ROG">Rogue</label>
+        <input type= "checkbox" id="SOR" name = "ignore" value = "Sorcerer">        <label for= "SOR">Sorcerer</label>
+        <input type= "checkbox" id="WAR" name = "ignore" value = "Warlock">        <label for= "WAR">Warlock</label>
+        <input type= "checkbox" id="WIZ" name = "ignore" value = "Wizard">        <label for= "WIZ">Wizard</label>
+
+    </form><br>
+
+    <form>
+        <button type="button" onclick="Optimizer()">Submit</button>
+    </form>
+
+    <div id = "Interpretation"></div>
+    <div id="result"></div>
+    <script>
+        function Optimizer(){
+
+            
+            //variables where the stats will be saved
+            var STR;
+            var DEX;
+            var CON;
+            var INT;
+            var WIS;
+            var CHA;
+            var invalid = false;
+
+            //getting the stats
+            var ele = document.getElementById('stat1').value
+            if(Number(ele) <= 20 && Number(ele) >= 1){
+                STR = ele
+            }
+            else{
+                invalid = true;
+            }
+
+            var ele = document.getElementById('stat2').value
+            if(Number(ele) <= 20 && Number(ele) >= 1){
+                DEX = ele
+            }
+            else{
+                invalid = true;
+            }
+            
+            var ele = document.getElementById('stat3').value
+            if(Number(ele) <= 20 && Number(ele) >= 1){
+                CON = ele
+            }
+            else{
+                invalid = true;
+            }
+            
+            var ele = document.getElementById('stat4').value
+            if(Number(ele) <= 20 && Number(ele) >= 1){
+                INT = ele
+            }
+            else{
+                invalid = true;
+            }
+            var ele = document.getElementById('stat5').value
+            if(Number(ele) <= 20 && Number(ele) >= 1){
+                WIS = ele
+            }
+            else{
+                invalid = true;
+            }
+            var ele = document.getElementById('stat6').value
+            if(Number(ele) <= 20 && Number(ele) >= 1){
+                CHA = ele
+            }
+            else{
+                invalid = true;
+            }
+
+            //removes last output
+            document.getElementById("result").innerHTML = ""
+
+            if(!invalid){
+                //getting the list of elements to ignore
+                var ele = document.getElementsByName('ignore')
+
+
+                //compute values for the classes
+
+                let ARTIFICER = [(INT/10*2+DEX/10*1.5)/2 , "Artificer"]
+                let BARBARIAN = [(STR/10*2+CON/10*1.5)/2, "Barbarian"]
+                let BARD = [(CHA/10*2+DEX/10*1.5)/2, "Bard"]
+                let BLOODHUNTER = [(DEX/10*2+CON/10*1.5)/2, "BloodHunter"]
+                let CLERIC = [(WIS/10*2+CON/10*1.5)/2, "Cleric"]
+                let DRUID = [(WIS/10*2+CON/10*1.5)/2, "Druid"]
+                let FIGHTER = [(STR/10*2+DEX/10*1.5)/2, "Fighter"]
+                let MONK = [(DEX/10*2+WIS/10*1.5)/2, "Monk"]
+                let PALADIN = [(CHA/10*2+CON/10*1.5)/2, "Paladin"]
+                let RANGER = [(DEX/10*2+WIS/10*1.5)/2, "Ranger"]
+                let ROGUE = [(DEX/10*2+CHA/10*1.5)/2, "Rogue"]
+                let SORCERER = [(CHA/10*2+CON/10*1.5)/2, "Sorcerer"]
+                let WARLOCK = [(CHA/10*2+CON/10*1.5)/2, "Warlock"]
+                let WIZARD = [(INT/10*2+DEX/10*1.5)/2, "Wizard"]
+
+
+                var v = []
+                if(!ele[0].checked)
+                    v.push(ARTIFICER)
+                if(!ele[1].checked)
+                    v.push(BARBARIAN)
+                if(!ele[2].checked)
+                    v.push(BARD)
+                if(!ele[3].checked)
+                    v.push(BLOODHUNTER)
+                if(!ele[4].checked)
+                    v.push(CLERIC)
+                if(!ele[5].checked)
+                    v.push(DRUID)
+                if(!ele[6].checked)
+                    v.push(FIGHTER)
+                if(!ele[7].checked)
+                    v.push(MONK)
+                if(!ele[8].checked)
+                    v.push(PALADIN)
+                if(!ele[9].checked)
+                    v.push(RANGER)
+                if(!ele[10].checked)
+                    v.push(ROGUE)
+                if(!ele[11].checked)
+                    v.push(SORCERER)
+                if(!ele[12].checked)
+                    v.push(WARLOCK)
+                if(!ele[13].checked)
+                    v.push(WIZARD)
+
+                v.sort(function(a,b){return b[0] - a[0]})
+
+                //output results
+                
+                document.getElementById("Interpretation").innerHTML = "Range of scores is from 3.5-0.175 The Highest valued classes are the ones we recommend you build! \nIf you do not like the recommendation, try adjusting where you put stats or ignoring a class!\n\nHappy Character Creation!"
+                newoutput = document.createElement('div')
+                for(var i=0; i<v.length;i++){
+                    newoutput.textContent += v[i][1] + " with a score of " + v[i][0] + "\n\n"
+                }
+                document.getElementById("result").appendChild(newoutput)
+            }
+            else{
+                document.getElementById("result").innerHTML = "One of your stats is invalid!"
+            }
+        }
+    </script>
+    <noscript>Sorry, your browser does not support Javascript!</noscript>
+</body>
+
+</html>
+<!-- Possibly make the button open a new webpage to display results-->
