@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
-    <h1>D&D Class Recommendation Tool!!</h1>
+    <h1 class = "h1">D&D Class Recommendation Tool!!</h1>
     <p>
         All you have to do is input your six stats and choose any classes you do not want factored into the calculation.  Then watch the magic unfold!
     </p>
@@ -49,7 +49,7 @@
     </form>
 
     <div id = "Interpretation"></div>
-    <div id="result"></div>
+    <div id="result" class = "test"></div>
     <script>
         function Optimizer(){
 
@@ -119,11 +119,10 @@
 
 
                 //compute values for the classes
-
                 let ARTIFICER = [(INT/10*2+DEX/10*1.5)/2 , "Artificer"]
                 let BARBARIAN = [(STR/10*2+CON/10*1.5)/2, "Barbarian"]
                 let BARD = [(CHA/10*2+DEX/10*1.5)/2, "Bard"]
-                let BLOODHUNTER = [(DEX/10*2+CON/10*1.5)/2, "BloodHunter"]
+                let BLOODHUNTER = [(DEX/10*2+CON/10*1.5)/2, "Blood Hunter"]
                 let CLERIC = [(WIS/10*2+CON/10*1.5)/2, "Cleric"]
                 let DRUID = [(WIS/10*2+CON/10*1.5)/2, "Druid"]
                 let FIGHTER = [(STR/10*2+DEX/10*1.5)/2, "Fighter"]
@@ -135,7 +134,7 @@
                 let WARLOCK = [(CHA/10*2+CON/10*1.5)/2, "Warlock"]
                 let WIZARD = [(INT/10*2+DEX/10*1.5)/2, "Wizard"]
 
-
+                //add classes to the list if they are not ignored
                 var v = []
                 if(!ele[0].checked)
                     v.push(ARTIFICER)
@@ -183,7 +182,8 @@
         }
     </script>
     <noscript>Sorry, your browser does not support Javascript!</noscript>
+
+    <a href="homepage.html"> Back to Home Page</a>
 </body>
 
 </html>
-<!-- Possibly make the button open a new webpage to display results-->

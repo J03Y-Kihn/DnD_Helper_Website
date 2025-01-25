@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spell Finder</title>
+        <link rel="icon" type="image/x-icon" href="favicon2.ico">
+        <script>src= "spellFunctions.js"</script>
+        <link rel="stylesheet" href="mystyle.css">
+
+    </head>
+    <h1>Input the Spell To Search For</h1>
+    <p>Type the Name of the spell you wish to find information about! If no information appears, double check your spelling or that it is apart of the D&D SRD (free to use D&D content)</p>
+    <form>
+        <label for="Spellname:">Spell Name:</label>
+        <input type = "text" id="spellname" name="spellname" pattern = [a-zA-Z\s]* placeholder = "Type Here"><br><br>
+        <button type = "button" onclick="spell_search()">Search</button></form><br><br>
+
+    <div id="result"></div><br><br>
+
+    <a href="homepage.html">Back to HomePage</a>
+
+    <script>
+        function spell_search(){
+        
+            const myHeaders = new Headers()
+            myHeaders.append("Accept", "application/json")
+
+
+            const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+            }
+
+            lowercase = document.getElementById('spellname').value.toLowerCase().trim().replace(" ","-")
+            fetch("https://www.dnd5eapi.co/api/spells/" + lowercase)
+
+                .then((response) => {
+                    if (response.ok){
+                        return response.json();
+                    }
+                    else{
+                        throw new Error ('API request Failed')
+                        
+                    }
+                })
+                .then(data => {                    
+                    //calling a function for parsing (below) did not work
+                    //var test = outputSpell(data)
+
+                    //Parsing through the input to gather all potential values
+                    var output = ``
+                    if(data.name){
+                        output += `Name: ${data.name}`
+                    }
+                    if(data.desc){
+                        output += `\nDescription: ${data.desc}`
+                    }
+                    if(data.higher_level){
+                        output += `\nHigher Level Uses: ${data.higher_level}`
+                    }
+                    if(data.range){
+                        output += `\nRange: ${data.range}`
+                    }
+                    if(data.components){
+                        output += `\nComponent Type: ${data.components}`
+                    }
+                    if(data.material){
+                        output += `\nMaterials Needed: ${data.material}`
+                    }
+                    if(data.area_of_effect){
+                        output += `\nArea of Effect: ${data.area_of_effect.size} ft ${data.area_of_effect.type}`
+                    }
+                    if(data.ritual){
+                        output += `\nRitual Cast Option`
+                    }
+                    if(data.duration){
+                        output += `\nDuration: ${data.duration}`
+                    }
+                    if(data.concentration){
+                        output += `\nConcentration Required`
+                    }
+                    if(data.casting_time){
+                        output += `\nCasting Time: ${data.casting_time}`
+                    }
+                    if(data.level){
+                        output += `\nLevel: ${data.level}`
+                    }
+                    if(data.attack_type){
+                        output += `\nAttack Type:${data.attack_type}`
+                    }
+                    if(data.damage){
+                        output += `\nDamage: ${data.damge}`
+                    }
+                    if(data.school){
+                        output += `\nSchool of Magic: ${data.school.name}`
+                    }
+                    if(data.classes){
+                        var size = Object.keys(data.classes).length
+                        if(size > 1){
+                            output += `\nClasses: `
+                            for(var i=0; i< size; i++){
+                                output += `${data.classes[i].name} `
+                            } 
+                        }
+                        else{
+                            output += `\nClass: ${data.classes[0].name}`
+                        }                       
+                    }
+
+                    //potentially add the subclass search to this for more info
+                    if(data.subclasses){
+                        var subSize = Object.keys(data.subclasses).length
+                        if(subSize > 1){
+                            output += `\nSubClasses: `
+                            for(var i=0; i< subSize; i++){
+                                output += `${data.subclasses[i].name} `
+                            } 
+                        }
+                        else{
+                            output += `\nSubClass: ${data.subclasses[0].name}`
+                        } 
+                    }
+
+                    document.getElementById('result').innerHTML = output
+                })
+                .catch(error => {
+                    console.error(error)
+                })
+                return;
+            }
+    </script>
+</html>
