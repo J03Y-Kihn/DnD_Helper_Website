@@ -32,6 +32,7 @@
             }
 
             lowercase = document.getElementById('spellname').value.toLowerCase().trim().replace(" ","-")
+            console.log(lowercase)
             fetch("https://www.dnd5eapi.co/api/spells/" + lowercase)
 
                 .then((response) => {
@@ -47,6 +48,7 @@
                     //calling a function for parsing (below) did not work
                     //var test = outputSpell(data)
 
+                    console.log(data)
                     //Parsing through the input to gather all potential values
                     var output = ``
                     if(data.name){
@@ -88,9 +90,23 @@
                     if(data.attack_type){
                         output += `\nAttack Type:${data.attack_type}`
                     }
+                    //not needed since mentioned in the spell description and higher level usage
+                    /*
                     if(data.damage){
-                        output += `\nDamage: ${data.damge}`
+                        if(data.damage.damage_at_character_level){
+                            output += `\nDamage: ${data.damage.damage_at_character_level}`
+                        }
+                        else if(data.damage.damage_at_slot_level){
+                            output += `\nDamage: ${data.damage[4]}`
+                        }
+                        output += `\nDamage Type: ${data.damage.damage_type.name}`
                     }
+                    if(data.dc){
+                        output += `\n${data.dc.dc_type.name} Save`
+                        if(data.dc.dc_success){
+                            output += ` take ${data.dc.dc_success} damage on success`
+                        }
+                    }*/
                     if(data.school){
                         output += `\nSchool of Magic: ${data.school.name}`
                     }
@@ -99,7 +115,10 @@
                         if(size > 1){
                             output += `\nClasses: `
                             for(var i=0; i< size; i++){
-                                output += `${data.classes[i].name} `
+                                output += `${data.classes[i].name}`
+                                if(i < size-1){
+                                    output += `, `
+                                }
                             } 
                         }
                         else{
@@ -113,7 +132,10 @@
                         if(subSize > 1){
                             output += `\nSubClasses: `
                             for(var i=0; i< subSize; i++){
-                                output += `${data.subclasses[i].name} `
+                                output += `${data.subclasses[i].name}`
+                                if(i < subSize-1){
+                                    output += `, `
+                                }
                             } 
                         }
                         else{

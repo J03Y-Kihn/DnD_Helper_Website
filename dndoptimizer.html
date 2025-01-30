@@ -49,6 +49,11 @@
     </form>
 
     <div id = "Interpretation"></div>
+    <p>
+        The range of scores is from 3.5-0.175 The Highest valued classes are the ones we recommend you build!<br>
+        If you do not like the recommendation, try adjusting where you put stats or ignoring a class!<br>
+        Happy Character Creation!
+    </p>
     <div id="result" class = "test"></div>
     <script>
         function Optimizer(){
@@ -169,7 +174,6 @@
 
                 //output results
                 
-                document.getElementById("Interpretation").innerHTML = "Range of scores is from 3.5-0.175 The Highest valued classes are the ones we recommend you build! \nIf you do not like the recommendation, try adjusting where you put stats or ignoring a class!\n\nHappy Character Creation!"
                 newoutput = document.createElement('div')
                 for(var i=0; i<v.length;i++){
                     newoutput.textContent += v[i][1] + " with a score of " + v[i][0] + "\n\n"
